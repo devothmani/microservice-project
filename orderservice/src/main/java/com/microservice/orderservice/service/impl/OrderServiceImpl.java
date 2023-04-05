@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.microservice.orderservice.exception.OrderServiceCustomException;
+import com.microservice.orderservice.external.client.PaymentService;
+import com.microservice.orderservice.external.client.ProductService;
 import com.microservice.orderservice.model.Order;
 import com.microservice.orderservice.payload.request.OrderRequest;
 import com.microservice.orderservice.payload.request.PaymentRequest;
@@ -27,13 +29,14 @@ public class OrderServiceImpl implements OrderService{
 	
 	private final OrderRepository orderRepository;
 	
-	//@Autowired
-    //private RestTemplate restTemplate;
-	
-	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
-	}
+	 private final ProductService productService;
+
+	 private final PaymentService paymentService;
+	 
+	 @Bean
+		public RestTemplate restTemplate() {
+		    return new RestTemplate();
+		}
 	
 	@Override
 	public long placeOrder(OrderRequest orderRequest) {
@@ -45,6 +48,9 @@ public class OrderServiceImpl implements OrderService{
         //CANCELLED
 
         log.info("OrderServiceImpl | placeOrder | Placing Order Request orderRequest : " + orderRequest.toString());
+
+        log.info("OrderServiceImpl | placeOrder | Calling productService through FeignClient");
+        productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
 
         log.info("OrderServiceImpl | placeOrder | Creating Order with Status CREATED");
         Order order = Order.builder()
@@ -69,6 +75,7 @@ public class OrderServiceImpl implements OrderService{
         String orderStatus = null;
 
         try {
+            paymentService.doPayment(paymentRequest);
             log.info("OrderServiceImpl | placeOrder | Payment done Successfully. Changing the Oder status to PLACED");
             orderStatus = "PLACED";
         } catch (Exception e) {
