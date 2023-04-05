@@ -50,6 +50,8 @@ public class OrderServiceImpl implements OrderService{
         log.info("OrderServiceImpl | placeOrder | Placing Order Request orderRequest : " + orderRequest.toString());
 
         log.info("OrderServiceImpl | placeOrder | Calling productService through FeignClient");
+        
+        //Call reduceQuantity method of ProductService through another microservice using Cloud open feign
         productService.reduceQuantity(orderRequest.getProductId(), orderRequest.getQuantity());
 
         log.info("OrderServiceImpl | placeOrder | Creating Order with Status CREATED");
@@ -75,6 +77,7 @@ public class OrderServiceImpl implements OrderService{
         String orderStatus = null;
 
         try {
+        	//Call doPayment method of PaymentService through another microservice using Cloud open feign
             paymentService.doPayment(paymentRequest);
             log.info("OrderServiceImpl | placeOrder | Payment done Successfully. Changing the Oder status to PLACED");
             orderStatus = "PLACED";
