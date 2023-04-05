@@ -1,0 +1,5 @@
+package com.microservice.orderservice.payload.request;
+
+public class PaymentRequest {
+
+}

@@ -1,0 +1,5 @@
+package com.microservice.orderservice.payload.response;
+
+public class OrderResponse {
+
+}

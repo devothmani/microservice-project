@@ -1,0 +1,5 @@
+package com.microservice.paymentservice.exception;
+
+public class RestResponseEntityExceptionHandler {
+
+}

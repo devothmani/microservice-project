@@ -1,0 +1,29 @@
+package com.microservice.paymentservice.exception.PaymentServiceCustomException;
+
+import org.springframework.stereotype.Service;
+
+import com.microservice.paymentservice.payload.PaymentRequest;
+import com.microservice.paymentservice.payload.PaymentResponse;
+import com.microservice.paymentservice.service.PaymentService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Service
+@Log4j2
+@RequiredArgsConstructor
+public class PaymentServiceImpl implements PaymentService{
+	
+	@Override
+	public long doPayment(PaymentRequest paymentRequest) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public PaymentResponse getPaymentDetailsByOrderId(long orderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
