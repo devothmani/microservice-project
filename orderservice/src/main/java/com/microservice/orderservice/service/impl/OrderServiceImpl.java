@@ -84,6 +84,8 @@ public class OrderServiceImpl implements OrderService{
 
         return order.getId();
 	}
+	
+	// Microservice using RestTemplate
 
 	@Override
 	public OrderResponse getOrderDetails(long orderId) {
