@@ -1,5 +1,0 @@
-package com.microservice.productservice.payload.request;
-
-public class ProductRequest {
-
-}

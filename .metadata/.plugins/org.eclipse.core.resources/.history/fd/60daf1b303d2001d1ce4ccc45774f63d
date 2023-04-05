@@ -1,5 +1,0 @@
-package com.microservice.productservice.payload.response;
-
-public class ProductResponse {
-
-}
